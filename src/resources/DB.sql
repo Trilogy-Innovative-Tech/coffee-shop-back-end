@@ -51,10 +51,18 @@ CREATE TABLE employee
     is_active BOOLEAN
 );
 
+CREATE TABLE user_role
+(
+    id        VARCHAR(20) PRIMARY KEY,
+    name      VARCHAR(50) NOT NULL,
+    is_active BOOLEAN
+);
+
 CREATE TABLE "user"
 (
     username    VARCHAR(100) PRIMARY KEY,
     employee_id VARCHAR(20)  NOT NULL,
+    role_id     VARCHAR(20)  NOT NULL REFERENCES user_role (id),
     email       VARCHAR(100) NOT NULL,
     password    VARCHAR(200) NOT NULL,
     is_active   BOOLEAN,
