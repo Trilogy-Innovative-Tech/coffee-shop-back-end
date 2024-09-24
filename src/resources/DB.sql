@@ -111,18 +111,36 @@ CREATE TABLE customer_offer
     CONSTRAINT pk_co PRIMARY KEY (customer_id, offer_id)
 );
 
-CREATE TABLE material
+CREATE TABLE unit_group
 (
     id        VARCHAR(20) PRIMARY KEY,
     name      VARCHAR(100) NOT NULL,
     is_active BOOLEAN
 );
 
+CREATE TABLE material
+(
+    id            VARCHAR(20) PRIMARY KEY,
+    name          VARCHAR(100) NOT NULL,
+    unit_group_id VARCHAR(20)  NOT NULL REFERENCES unit_group (id),
+    is_active     BOOLEAN
+);
+
+
+
+CREATE TABLE unit
+(
+    id            VARCHAR(20) PRIMARY KEY,
+    name          VARCHAR(100) NOT NULL,
+    unit_group_id VARCHAR(20)  NOT NULL REFERENCES unit_group (id),
+    is_active     BOOLEAN
+);
+
 CREATE TABLE stock
 (
     material_id VARCHAR(20) PRIMARY KEY,
     qty         DECIMAL(9, 2) NOT NULL,
-    unit        VARCHAR(10)   NOT NULL,
+    unit_id     VARCHAR(10)   NOT NULL REFERENCES unit (id),
     username    VARCHAR(100) REFERENCES "user" (username),
     CONSTRAINT fk_mat FOREIGN KEY (material_id) REFERENCES material (id)
 );
