@@ -233,3 +233,12 @@ CREATE TABLE grn_detail
     qty         DECIMAL(9, 2) NOT NULL,
     CONSTRAINT pk_grnd PRIMARY KEY (grn_id, material_id)
 );
+
+CREATE TABLE attendance
+(
+    id          VARCHAR(20) PRIMARY KEY,
+    employee_id VARCHAR(20) NOT NULL REFERENCES employee (id),
+    in_time     TIMESTAMP   NOT NULL,
+    out_time    TIMESTAMP   NOT NULL,
+    is_active   BOOLEAN
+);
